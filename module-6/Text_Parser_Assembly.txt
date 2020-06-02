@@ -1,0 +1,21 @@
+# R7 -> Parameter
+# R0 -> # of chracter
+# R1 -> # of space
+# R2 -> # of cons. space
+
+LOOP:
+
+jump SHIFT
+CONT:
+
+
+jump LOOP
+
+SHIFT:
+
+jump CONT
+
+
+FINISH:
+jump FINISH
+

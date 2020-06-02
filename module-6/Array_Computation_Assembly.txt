@@ -1,0 +1,29 @@
+lwl $r0, $r0, 0 # the number n
+
+sll $r4, $r0, 4   # calculate 4n
+sub $r3, $r4, $r0 # calculate 3n
+sub $r2, $r3, $r0 # calculate 2n
+sub $r1, $r2, $r0 # calculate n
+
+LOOP1:
+lwl $r5, $r1, 0 # load A
+lwl $r6, $r2, 0 # load B
+lwl $r7, $r3, 0 # load C
+
+add $r0, $r5, $r6 # Z = A + B
+sub $r0, $r0, $r7 # Z = A + B - C
+
+swl $r0, $r4, 0 # store Z
+
+addi $r1, $r1, -1
+addi $r2, $r2, -1
+addi $r3, $r3, -1
+addi $r4, $r4, -1
+
+sub $r0, $r0, $r0 # clear R0
+addi $r0, $r0, -1 # load -1
+breq $r0, $r1, FINISH
+jump LOOP1
+
+FINISH:
+jump FINISH
