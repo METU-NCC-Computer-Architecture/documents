@@ -1,9 +1,9 @@
 lwl $r0, $r0, 0 # the number n
 
-sll $r4, $r0, 2   # calculate 4n
-sub $r3, $r4, $r0 # calculate 3n
-sub $r2, $r3, $r0 # calculate 2n
-sub $r1, $r2, $r0 # calculate n
+add $r1, $r1, $r0 # calculate n
+add $r2, $r1, $r0 # calculate 2n
+add $r3, $r2, $r0 # calculate 3n
+add $r4, $r3, $r0   # calculate 4n
 
 LOOP1:
 lwl $r5, $r1, 0 # load A
