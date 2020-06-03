@@ -1,21 +1,74 @@
-# R7 -> Parameter
-# R0 -> # of chracter
-# R1 -> # of space
-# R2 -> # of cons. space
+SUB $R5, $R5, $R5
+ADDI $R5, $R5, 2 # Address 2
+SUB $R1, $R1, $R1
+ADDI $R1, $R1, 0 # space charcters counter
+SUB $R2, $R2, $R2
+ADDI $R2, $R2, 0 # charcters counter
 
-LOOP:
+Read:
+LWL $R6, $R5, 0
 
-jump SHIFT
-CONT:
+SUB $R0, $R0, $R0
+ADDI $R0, $R0, 8 # backspace character
+BREQ $R0, $R6, count
 
+SUB $R0, $R0, $R0
+ADDI $R0, $R0, 9 # tab character
+BREQ $R0, $R6, count
 
-jump LOOP
+SUB $R0, $R0, $R0
+ADDI $R0, $R0, 10 # line feed character
+BREQ $R0, $R6, count
 
-SHIFT:
+SUB $R0, $R0, $R0
+ADDI $R0, $R0, 12 # form feed character
+BREQ $R0, $R6, count
 
-jump CONT
+SUB $R0, $R0, $R0
+ADDI $R0, $R0, 13 # carriage return character
+BREQ $R0, $R6, count
 
+SUB $R0, $R0, $R0
+ADDI $R0, $R0, 16
+ADD $R0, $R0, $R0 # SPACE character
+BREQ $R0, $R6, count
 
-FINISH:
-jump FINISH
+SUB $R7, $R7, $R7
+ADDI $R7, $R7, 0 # Null character
+BREQ $R6, $R7, Stop
 
+ADDI $R5, $R5, 1
+ADDI $R2, $R2, 1
+JUMP Read
+
+count: 
+ADDI $R1, $R1, 1
+ADDI $R7, $R7, 1
+SUB $R6, $R6, $R6
+ADDI $R6, $R6, 2
+ADDI $R5, $R5, 1
+ADDI $R3, $R5, -2 #store the address in R3
+BREQ $R6, $R7, SB
+ADDI $R2, $R2, 1
+JUMP Read
+
+SB:
+SUB $R7, $R7, $R7
+ADDI $R7, $R7, 0
+LWL $R6, $R5, 0
+ADDI $R5, $R5, -1
+SWL $R6, $R5, 0
+ADDI $R5, $R5, 2
+BRNE $R6, $R7, SB
+ADDI $R5, $R3, 0 #restore the previous address from R3
+
+ADDI $R1, $R1, -1
+JUMP Read
+
+Stop: 
+SWL $R1, $R7, 0
+SUB $R1, $R1, $R2
+SWL $R1, $R7, 1
+JUMP Exit
+
+Exit: JUMP Exit
