@@ -48,7 +48,9 @@ BREQ $R6, $R7, SWAP
 JUMP Read
 
 SWAP:
+ADDI $R1, $R1, -1
 SUB $R3, $R3, $R3
+ADDI $R5, $R5, -1
 ADDI $R3, $R5, 0
 SUB $R0, $R0, $R0
 
