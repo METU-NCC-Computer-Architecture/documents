@@ -55,9 +55,8 @@ SUB $R0, $R0, $R0
 MOV:
 LWL $R6, $R3, 1
 SWL $R6, $R3, 0
-SWL $R6, $R5, 0
-BREQ $R6, $R0, MOV
 ADDI $R3, $R3, 1
+BREQ $R6, $R0, MOV
 JUMP Read
 
 Stop: 
