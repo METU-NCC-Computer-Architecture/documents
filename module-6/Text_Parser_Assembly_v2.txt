@@ -62,4 +62,4 @@ JUMP Read
 Stop: 
 SUB $R0, $R0, $R0
 SWL $R2, $R0, 0
-SWL $R2, $R0, 1
+SWL $R1, $R0, 1
